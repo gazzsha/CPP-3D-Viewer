@@ -3,31 +3,24 @@
 
 #include <iostream>
 #include <vector>
+#include <sstream>
+#include <string>
+#include <fstream>
+#include <exception>
 
 namespace s21
 {
 enum type {
-  VERTEXES = 2,
-  FACETS = 3,
+  VERTEXES,
+  FACETS,
 };
 
 enum move {
-  X = 4,
-  Y = 5,
-  Z = 6,
+  X,
+  Y,
+  Z,
 };
 
-
-typedef struct matrix {
-  std::vector<std::vector<double>> matrix;
-  int rows;
-  int cols;
-} matrix_t;
-
-typedef struct facets {
-  std::vector<int> vertexrs;
-  int numbers_of_vertexes_in_facets;
-} polygon_t;
 
 typedef struct min_max {
   std::vector<double> x_min_max;
@@ -35,16 +28,76 @@ typedef struct min_max {
   std::vector<double> z_min_max;
 } min_max_t;
 
+class ValidatorAbstract {
+public:
+    virtual void Validation(const std::string&) const = 0;    
+};
 
+class ValidatorVexters : public ValidatorAbstract {
+public:
+    void Validation(const std::string&) const override;
+};
+
+class ValidatorFacets : public ValidatorAbstract {
+public:
+    void Validation(const std::string&) const override;
+};
+
+class FillerAbstract {
+    public:
+    virtual std::vector<double> Fill(const std::string& str) const = 0;
+};
+
+class FillerVexters : FillerAbstract {
+public:
+    std::vector<double> Fill(const std::string& str) const override;
+};
+
+class FillerFacets : FillerAbstract {
+public:
+    std::vector<double> Fill(const std::string& str) const override;
+};
 class Model {
 private:
-  unsigned int count_of_vertexrs;
-  unsigned int count_of_facets;
-  matrix_t matrix_3d;
-  std::vector<polygon_t> polygon;
-  min_max_t min_max_values;
-public:
+using Matrix = std::vector<std::vector<double>>;
 
+  Model() {}
+  Model(const Model&) = delete;
+  Model& operator=(const Model&) = delete;
+
+  Matrix matrix_;
+  Matrix polygon_;
+  min_max_t min_max_values;
+
+public: 
+    void OpenObjFile(std::string file_name);
+    void ParsingObjFile(std::string str);
+    static bool IsNumber(char c);
+    ValidatorVexters validtion_vexters;
+    ValidatorFacets validtion_facets;
+    FillerVexters filler_verters;
+    FillerFacets filler_facets;
+    static Model& GetInstanceModel() {
+    static Model model_;
+    return model_;
+  }
+
+        void print() { 
+        for (int i = 0; i < matrix_.size(); ++i) { 
+            for (int j = 0; j < matrix_[i].size(); ++j) { 
+                std::cout << matrix_[i][j] << " ";
+            }
+            std::cout << "\n";
+        }
+    }
+            void printt() { 
+        for (int i = 0; i < polygon_.size(); ++i) { 
+            for (int j = 0; j < polygon_[i].size(); ++j) { 
+                std::cout << polygon_[i][j] << " ";
+            }
+            std::cout << "\n";
+        }
+    }
 };    
 } // namespace s21
 
