@@ -7,6 +7,7 @@
 #include <string>
 #include <fstream>
 #include <exception>
+#include <cmath>
 
 namespace s21
 {
@@ -16,11 +17,10 @@ enum type {
 };
 
 enum move {
-  X,
-  Y,
-  Z,
+  X = 0,
+  Y = 1,
+  Z = 2,
 };
-
 
 typedef struct min_max {
   std::vector<double> x_min_max;
@@ -59,7 +59,7 @@ public:
 };
 class Model {
 private:
-using Matrix = std::vector<std::vector<double>>;
+  using Matrix = std::vector<std::vector<double>>;
 
   Model() {}
   Model(const Model&) = delete;
@@ -73,14 +73,23 @@ public:
     void OpenObjFile(std::string file_name);
     void ParsingObjFile(std::string str);
     static bool IsNumber(char c);
+    static Model& GetInstanceModel() {
+    static Model model_;
+    return model_;
+    }
     ValidatorVexters validtion_vexters;
     ValidatorFacets validtion_facets;
     FillerVexters filler_verters;
     FillerFacets filler_facets;
-    static Model& GetInstanceModel() {
-    static Model model_;
-    return model_;
-  }
+
+    double FindMaxVertexes(move) const;
+    double FindMinVertexes(move) const;
+    void FigureCentering();
+    void MoveFigureXYZ(const double&);
+    const double SupportIncreaseReductionFigure(const double&);
+    void IncreaseRedutionFigure(const double&);
+    void IncreaseRedutionFigureA(const double&);
+    void RotationByXYZ(const double&, move);
 
         void print() { 
         for (int i = 0; i < matrix_.size(); ++i) { 
