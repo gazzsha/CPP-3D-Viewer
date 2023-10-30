@@ -10,9 +10,9 @@ namespace s21
   if (inputFile.is_open()) {
     while (std::getline(inputFile, line)) {
     ParsingObjFile(line);
-    FigureCentering();
-    //IncreaseRedutionFigure(0.5);
     }
+    FigureCentering();
+    IncreaseRedutionFigure(0.5);
   }
 }
 
@@ -20,13 +20,13 @@ void Model::ParsingObjFile(std::string str) {
 
   switch (str[0]) {
     case 'v':
-        validtion_vexters.Validation(str);
-        matrix_.push_back(filler_verters.Fill(str));    
+      validtion_vexters.Validation(str);
+      matrix_.push_back(filler_verters.Fill(str));    
       break;
 
     case 'f':
-        validtion_facets.Validation(str);
-        polygon_.push_back(filler_facets.Fill(str));      
+      validtion_facets.Validation(str);
+      polygon_.push_back(filler_facets.Fill(str));      
       break;
     case '\0': break;
     default:
@@ -112,10 +112,21 @@ double Model::FindMinVertexes(move type) const {
   return minType;
 }
 
+void Model::SetMinMaxData() {
+  max_min_values.x_max_min.push_back(FindMaxVertexes(X));
+  max_min_values.x_max_min.push_back(FindMinVertexes(X));
+  max_min_values.y_max_min.push_back(FindMaxVertexes(Y));
+  max_min_values.y_max_min.push_back(FindMinVertexes(Y));
+  max_min_values.z_max_min.push_back(FindMaxVertexes(Z));
+  max_min_values.z_max_min.push_back(FindMinVertexes(Z));
+}
+
 void Model::FigureCentering() {
-  double center_x = FindMinVertexes(move::X) + (FindMaxVertexes(move::X) - FindMinVertexes(move::X)) / 2;
-  double center_y = FindMinVertexes(move::Y) + (FindMaxVertexes(move::Y) - FindMinVertexes(move::Y)) / 2;
-  double center_z = FindMinVertexes(move::Z) + (FindMaxVertexes(move::Z) - FindMinVertexes(move::Z)) / 2;
+  SetMinMaxData();
+  
+  double center_x = max_min_values.x_max_min[1] + (max_min_values.x_max_min[0] - max_min_values.x_max_min[1]) / 2;
+  double center_y = max_min_values.y_max_min[1] + (max_min_values.y_max_min[0] - max_min_values.y_max_min[1]) / 2;
+  double center_z = max_min_values.z_max_min[1] + (max_min_values.z_max_min[0] - max_min_values.z_max_min[1]) / 2;
 
   for (int i = 0; i < matrix_.size(); ++i) { 
     for (int j = 0; j < matrix_[i].size(); ++j) {
@@ -126,27 +137,25 @@ void Model::FigureCentering() {
   }
 }
 
-void Model::MoveFigureXYZ(const double& value) {
+void Model::MoveFigureXYZ(const double& value, move type) {
   for (int i = 0; i < matrix_.size(); ++i) { 
     for (int j = 0; j < matrix_[i].size(); ++j) {
-      if (j == X) matrix_[i][j] += value;
-      if (j == Y) matrix_[i][j] += value;
-      if (j == Z) matrix_[i][j] += value;
+      if (type == X && j == 0) matrix_[i][j] += value;
+      if (type == Y && j == 1) matrix_[i][j] += value;
+      if (type == Z && j == 2) matrix_[i][j] += value;
     }
   }
 }
 
 const double Model::SupportIncreaseReductionFigure(const double& val) {
-  double diff_x = FindMaxVertexes(X) - FindMinVertexes(X);
-  double diff_y = FindMaxVertexes(Y) - FindMinVertexes(Y);
-  double diff_z = FindMaxVertexes(Z) - FindMinVertexes(Z);
-
+  double diff_x = max_min_values.x_max_min[0] - max_min_values.x_max_min[1];
+  double diff_y = max_min_values.y_max_min[0] - max_min_values.y_max_min[1];
+  double diff_z = max_min_values.z_max_min[0] - max_min_values.z_max_min[1];
   double max_diff = std::max(std::max(diff_x, diff_y), diff_z);
-
   return (val - (val * (-1))) / max_diff;
 }
 
-void Model::IncreaseRedutionFigure(const double& val) {
+void Model::IncreaseRedutionFigure(const double val) {
   for (int i = 0; i < matrix_.size(); ++i) { 
     for (int j = 0; j < matrix_[i].size(); ++j) {
       if (j == X) matrix_[i][j] *= SupportIncreaseReductionFigure(val);
@@ -156,7 +165,7 @@ void Model::IncreaseRedutionFigure(const double& val) {
   }
 }
 
-void Model::IncreaseRedutionFigureA(const double& val) {
+void Model::IncreaseRedutionFigureA(const double val) {
   for (int i = 0; i < matrix_.size(); ++i) { 
     for (int j = 0; j < matrix_[i].size(); ++j) {
       if (j == X) matrix_[i][j] *= val;

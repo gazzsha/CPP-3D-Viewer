@@ -22,11 +22,11 @@ enum move {
   Z = 2,
 };
 
-typedef struct min_max {
-  std::vector<double> x_min_max;
-  std::vector<double> y_min_max;
-  std::vector<double> z_min_max;
-} min_max_t;
+typedef struct max_min {
+  std::vector<double> x_max_min;
+  std::vector<double> y_max_min;
+  std::vector<double> z_max_min;
+} max_min_t;
 
 class ValidatorAbstract {
 public:
@@ -57,6 +57,7 @@ class FillerFacets : FillerAbstract {
 public:
     std::vector<double> Fill(const std::string& str) const override;
 };
+
 class Model {
 private:
   using Matrix = std::vector<std::vector<double>>;
@@ -67,9 +68,10 @@ private:
 
   Matrix matrix_;
   Matrix polygon_;
-  min_max_t min_max_values;
+  //max_min_t max_min_values;
 
 public: 
+  max_min_t max_min_values;
     void OpenObjFile(std::string file_name);
     void ParsingObjFile(std::string str);
     static bool IsNumber(char c);
@@ -85,11 +87,12 @@ public:
     double FindMaxVertexes(move) const;
     double FindMinVertexes(move) const;
     void FigureCentering();
-    void MoveFigureXYZ(const double&);
+    void MoveFigureXYZ(const double&, move);
     const double SupportIncreaseReductionFigure(const double&);
-    void IncreaseRedutionFigure(const double&);
-    void IncreaseRedutionFigureA(const double&);
+    void IncreaseRedutionFigure(const double);
+    void IncreaseRedutionFigureA(const double);
     void RotationByXYZ(const double&, move);
+    void SetMinMaxData();
 
     // getter
     Matrix GetMatrixVertexes() { return matrix_; }

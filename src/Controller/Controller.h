@@ -9,8 +9,9 @@ private:
 public:
     Controller(Model*) : Model() {};
     ~Controller();
-    void OpenObjFile() { Model::OpenObjFile(); }
-    
+    void OpenObjFile() { model->OpenObjFile(); }
+    void MoveFigure(const double& value, move type) { model->MoveFigureXYZ(value, type); }
+    std::vector<std::vector<double>> getMatrixVertexes() { return model->GetMatrixVertexes(); }
 
 };
 
