@@ -11,7 +11,7 @@ namespace s21
     while (std::getline(inputFile, line)) {
     ParsingObjFile(line);
     FigureCentering();
-    IncreaseRedutionFigure(0.5);
+    //IncreaseRedutionFigure(0.5);
     }
   }
 }
@@ -36,7 +36,7 @@ void Model::ParsingObjFile(std::string str) {
 }
 
 bool Model::IsNumber(char c) {
-    return c >= '0' && c <= '9';
+  return c >= '0' && c <= '9';
 }
 
 void ValidatorVexters::Validation(const std::string& str) const {
@@ -91,31 +91,31 @@ std::vector<double> FillerFacets::Fill(const std::string& str) const {
 }
 
 double Model::FindMaxVertexes(move type) const {
-  double maxType = matrix_[type][0];
+  double maxType = matrix_.at(0)[type];
 
   for (const auto& row : matrix_) {
-    if (row[type] > maxType) {
-      maxType = row[type];
+    if (row.at(type) > maxType) {
+      maxType = row.at(type);
     }
   }
   return maxType;
 }
 
 double Model::FindMinVertexes(move type) const {
-  double minType = matrix_[type][0];
+  double minType = matrix_.at(0)[type];
   
   for (const auto& row : matrix_) {
-    if (row[type] < minType) {
-      minType = row[type];
+    if (row.at(type) < minType) {
+      minType = row.at(type);
     }
   }
   return minType;
 }
 
 void Model::FigureCentering() {
-  double center_x = FindMinVertexes(X) + (FindMaxVertexes(X) - FindMinVertexes(X)) / 2;
-  double center_y = FindMinVertexes(Y) + (FindMaxVertexes(Y) - FindMinVertexes(Y)) / 2;
-  double center_z = FindMinVertexes(Z) + (FindMaxVertexes(Z) - FindMinVertexes(Z)) / 2;
+  double center_x = FindMinVertexes(move::X) + (FindMaxVertexes(move::X) - FindMinVertexes(move::X)) / 2;
+  double center_y = FindMinVertexes(move::Y) + (FindMaxVertexes(move::Y) - FindMinVertexes(move::Y)) / 2;
+  double center_z = FindMinVertexes(move::Z) + (FindMaxVertexes(move::Z) - FindMinVertexes(move::Z)) / 2;
 
   for (int i = 0; i < matrix_.size(); ++i) { 
     for (int j = 0; j < matrix_[i].size(); ++j) {
