@@ -91,6 +91,11 @@ public:
     void IncreaseRedutionFigureA(const double&);
     void RotationByXYZ(const double&, move);
 
+    // getter
+    Matrix GetMatrixVertexes() { return matrix_; }
+    Matrix GetMatrixFacetes() { return polygon_; }
+    
+
         void print() { 
         for (int i = 0; i < matrix_.size(); ++i) { 
             for (int j = 0; j < matrix_[i].size(); ++j) { 

@@ -10,6 +10,8 @@ namespace s21
   if (inputFile.is_open()) {
     while (std::getline(inputFile, line)) {
     ParsingObjFile(line);
+    FigureCentering();
+    IncreaseRedutionFigure(0.5);
     }
   }
 }

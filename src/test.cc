@@ -1,9 +1,10 @@
-#include "Model.h"
+#include "Model/Model.h"
 
 int main() {
     s21::Model &a = s21::Model::GetInstanceModel();
     a.OpenObjFile("cube.obj");
     a.print();
+    std::cout << '\n';
     a.printt();
     std::cout << a.FindMaxVertexes(s21::move::Z) << '\n';
     std::cout << a.FindMinVertexes(s21::move::Z) << '\n';
