@@ -68,10 +68,9 @@ private:
 
   Matrix matrix_;
   Matrix polygon_;
-  //max_min_t max_min_values;
+  max_min_t max_min_values;
 
 public: 
-  max_min_t max_min_values;
     void OpenObjFile(std::string file_name);
     void ParsingObjFile(std::string str);
     static bool IsNumber(char c);
@@ -93,6 +92,7 @@ public:
     void IncreaseRedutionFigureA(const double);
     void RotationByXYZ(const double&, move);
     void SetMinMaxData();
+    void ClearData() {matrix_.clear(); polygon_.clear();}
 
     // getter
     Matrix GetMatrixVertexes() { return matrix_; }

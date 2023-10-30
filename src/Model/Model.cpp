@@ -8,6 +8,7 @@ namespace s21
   std::istringstream input;
 
   if (inputFile.is_open()) {
+    ClearData();
     while (std::getline(inputFile, line)) {
     ParsingObjFile(line);
     }
@@ -56,13 +57,17 @@ void ValidatorFacets::Validation(const std::string& str) const  {
 }
 
 std::vector<double> FillerVexters::Fill(const std::string& str) const {
+    auto counter = 0;
     auto i = 1;
     std::string number;
     std::vector<double> values;
     while (str[i] != '\0' && str[i] != '\n') {
     if (str[i] == '.' || str[i] == '-' || Model::IsNumber(str[i])) { number.push_back(str[i]); ++i; }
     else {
-      if (!number.empty()) values.push_back(std::stod(number));
+      if (!number.empty()) {
+        values.push_back(std::stod(number));
+        ++counter;
+      }
       number.clear();
       while (str[i] == ' ') i++;
     }
@@ -70,7 +75,9 @@ std::vector<double> FillerVexters::Fill(const std::string& str) const {
     if (!number.empty()) {
         number.push_back(str[i]);
         values.push_back(std::stod(number));
+        ++counter;
     }
+    if(counter != 3) throw std::runtime_error("Wrong data!");
     return values; 
 }
 
@@ -83,7 +90,10 @@ std::vector<double> FillerFacets::Fill(const std::string& str) const {
     else if(str[i] == '/') {
         while (str[i] != ' ' && Model::IsNumber(str[i + 1])) ++i;
         ++i;
-        if (!number.empty()) values.push_back(std::stod(number));
+        if (!number.empty()) {
+          values.push_back(std::stod(number));
+          ++counter;
+        }
         number.clear();
     }
     }
