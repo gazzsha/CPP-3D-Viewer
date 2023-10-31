@@ -1,0 +1,40 @@
+file(REMOVE_RECURSE
+  "3d_viewer_autogen"
+  "CMakeFiles/3d_viewer_autogen.dir/AutogenUsed.txt"
+  "CMakeFiles/3d_viewer_autogen.dir/ParseCache.txt"
+  "3d_viewer.app/Contents/MacOS/3d_viewer"
+  "3d_viewer.pdb"
+  "CMakeFiles/3d_viewer.dir/3d_viewer_autogen/mocs_compilation.cpp.o"
+  "CMakeFiles/3d_viewer.dir/3d_viewer_autogen/mocs_compilation.cpp.o.d"
+  "CMakeFiles/3d_viewer.dir/Controller/Controller.cpp.o"
+  "CMakeFiles/3d_viewer.dir/Controller/Controller.cpp.o.d"
+  "CMakeFiles/3d_viewer.dir/Model/Model.cpp.o"
+  "CMakeFiles/3d_viewer.dir/Model/Model.cpp.o.d"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/dgif_lib.c.o"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/dgif_lib.c.o.d"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/egif_lib.c.o"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/egif_lib.c.o.d"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/gif_err.c.o"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/gif_err.c.o.d"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/gif_font.c.o"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/gif_font.c.o.d"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/gif_hash.c.o"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/gif_hash.c.o.d"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/gifalloc.c.o"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/gifalloc.c.o.d"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/quantize.c.o"
+  "CMakeFiles/3d_viewer.dir/View/gif/giflib/quantize.c.o.d"
+  "CMakeFiles/3d_viewer.dir/View/gif/qgifimage.cpp.o"
+  "CMakeFiles/3d_viewer.dir/View/gif/qgifimage.cpp.o.d"
+  "CMakeFiles/3d_viewer.dir/View/main.cpp.o"
+  "CMakeFiles/3d_viewer.dir/View/main.cpp.o.d"
+  "CMakeFiles/3d_viewer.dir/View/mainwindow.cpp.o"
+  "CMakeFiles/3d_viewer.dir/View/mainwindow.cpp.o.d"
+  "CMakeFiles/3d_viewer.dir/View/myopenglwidgegt.cpp.o"
+  "CMakeFiles/3d_viewer.dir/View/myopenglwidgegt.cpp.o.d"
+)
+
+# Per-language clean rules from dependency scanning.
+foreach(lang C CXX)
+  include(CMakeFiles/3d_viewer.dir/cmake_clean_${lang}.cmake OPTIONAL)
+endforeach()

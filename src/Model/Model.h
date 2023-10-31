@@ -30,7 +30,7 @@ typedef struct max_min {
 
 class ValidatorAbstract {
 public:
-    virtual void Validation(const std::string&) const = 0;    
+    virtual void Validation(const std::string&) const = 0;
 };
 
 class ValidatorVexters : public ValidatorAbstract {
@@ -69,8 +69,12 @@ private:
   Matrix matrix_;
   Matrix polygon_;
   max_min_t max_min_values;
+  double old_position_x = 0;
+  double old_position_y = 0;
+  double old_position_z = 0;
+  double old_scale = 0.5;
 
-public: 
+public:
     void OpenObjFile(std::string file_name);
     void ParsingObjFile(std::string str);
     static bool IsNumber(char c);
@@ -97,25 +101,35 @@ public:
     // getter
     Matrix GetMatrixVertexes() { return matrix_; }
     Matrix GetMatrixFacetes() { return polygon_; }
-    
+    size_t get_count_of_vertexes() const noexcept;
+    size_t get_count_of_facets() const noexcept;
+    double get_old_position_x() const noexcept;
+    double get_old_position_y() const noexcept;
+    double get_old_position_z() const noexcept;
+    double get_scale() const noexcept;
 
-    //     void print() { 
-    //     for (int i = 0; i < matrix_.size(); ++i) { 
-    //         for (int j = 0; j < matrix_[i].size(); ++j) { 
+    // setter
+    void set_old_position_x(const double&);
+    void set_old_position_y(const double&);
+    void set_old_position_z(const double&);
+    void set_scale(const double&);
+    //     void print() {
+    //     for (int i = 0; i < matrix_.size(); ++i) {
+    //         for (int j = 0; j < matrix_[i].size(); ++j) {
     //             std::cout << matrix_[i][j] << " ";
     //         }
     //         std::cout << "\n";
     //     }
     // }
-    //         void printt() { 
-    //     for (int i = 0; i < polygon_.size(); ++i) { 
-    //         for (int j = 0; j < polygon_[i].size(); ++j) { 
+    //         void printt() {
+    //     for (int i = 0; i < polygon_.size(); ++i) {
+    //         for (int j = 0; j < polygon_[i].size(); ++j) {
     //             std::cout << polygon_[i][j] << " ";
     //         }
     //         std::cout << "\n";
     //     }
     // }
-};    
+};
 } // namespace s21
 
 
