@@ -4,10 +4,10 @@
 #include "../Model/Model.h"
 namespace s21 {
 class Controller {
- private:
+private:
   Model *model;
 
- public:
+public:
   Controller(Model *m) : model(m){};
   ~Controller(){};
   void OpenObjFile(const std::string &);
@@ -26,8 +26,7 @@ class Controller {
   void IncreaseRedutionFigure(const double &);
   std::vector<std::vector<double>> GetMatrixVertexes();
   std::vector<std::vector<double>> get_matrix_facetes();
-  void print() { model->print(); }
 };
-}  // namespace s21
+} // namespace s21
 
-#endif  // S21_CPP4_3DVIEWER_V2_SRC_CONTROLLER_CONTROLLER_H
+#endif // S21_CPP4_3DVIEWER_V2_SRC_CONTROLLER_CONTROLLER_H

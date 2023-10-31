@@ -3,11 +3,10 @@
 #define GL_SILENCE_DEPRECATION
 
 #include "mainwindow.h"
+#include <QMouseEvent>
 #include <QOpenGLFunctions>
 #include <QOpenGLWidget>
 #include <QPainter>
-
-#include <QMouseEvent>
 enum ProjectionType { Central, Parallel };
 class MyOpenGLWidgegt : public QOpenGLWidget,
                         public QOpenGLFunctions
@@ -65,5 +64,4 @@ private:
   void mouseMoveEvent(QMouseEvent *e) override;
   void mousePressEvent(QMouseEvent *e) override;
 };
-
 #endif // MYOPENGLWIDGEGT_H

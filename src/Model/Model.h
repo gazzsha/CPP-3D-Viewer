@@ -28,37 +28,37 @@ typedef struct max_min {
 } max_min_t;
 
 class ValidatorAbstract {
- public:
+public:
   virtual void Validation(const std::string &) const = 0;
 };
 
 class ValidatorVexters : public ValidatorAbstract {
- public:
+public:
   void Validation(const std::string &) const override;
 };
 
 class ValidatorFacets : public ValidatorAbstract {
- public:
+public:
   void Validation(const std::string &) const override;
 };
 
 class FillerAbstract {
- public:
+public:
   virtual std::vector<double> Fill(const std::string &str) const = 0;
 };
 
 class FillerVexters : FillerAbstract {
- public:
+public:
   std::vector<double> Fill(const std::string &str) const override;
 };
 
 class FillerFacets : FillerAbstract {
- public:
+public:
   std::vector<double> Fill(const std::string &str) const override;
 };
 
 class Model {
- private:
+private:
   using Matrix = std::vector<std::vector<double>>;
 
   Model() {}
@@ -73,7 +73,7 @@ class Model {
   double old_position_z = 0;
   double old_scale = 0.5;
 
- public:
+public:
   void OpenObjFile(std::string file_name);
   void ParsingObjFile(std::string str);
   static bool IsNumber(char c);
@@ -126,23 +126,7 @@ class Model {
   void set_old_position_y(const double &);
   void set_old_position_z(const double &);
   void set_scale(const double &);
-  void print() {
-    for (int i = 0; i < matrix_.size(); ++i) {
-      for (int j = 0; j < matrix_[i].size(); ++j) {
-        std::cout << matrix_[i][j] << " ";
-      }
-      std::cout << "\n";
-    }
-  }
-  void printt() {
-    for (int i = 0; i < polygon_.size(); ++i) {
-      for (int j = 0; j < polygon_[i].size(); ++j) {
-        std::cout << polygon_[i][j] << " ";
-      }
-      std::cout << "\n";
-    }
-  }
 };
-}  // namespace s21
+} // namespace s21
 
-#endif  // S21_CPP4_3DVIEWER_V2_SRC_MODEL_MODEL_H
+#endif // S21_CPP4_3DVIEWER_V2_SRC_MODEL_MODEL_H

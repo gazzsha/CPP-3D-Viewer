@@ -11,7 +11,6 @@ MainWindow::MainWindow(s21::Controller *controller_, QWidget *parent)
 }
 
 MainWindow::~MainWindow() {
-
   QMessageBox::StandardButton reply;
   reply = QMessageBox::question(
       this, "Saving settings",
@@ -35,7 +34,6 @@ void MainWindow::on_pushButton_chooseFile_clicked() {
   ui->label_textFile->setText(file_name);
   std::string math_exp_str = file_path.toStdString();
   try {
-
     ui->horizontalSlider_scale->setValue(50);
     ui->horizontalSlider_x_value->setValue(0);
     ui->horizontalSlider_y_value->setValue(0);
@@ -60,7 +58,6 @@ void MainWindow::on_pushButton_chooseFile_clicked() {
 }
 
 void MainWindow::on_horizontalSlider_x_value_valueChanged(int value) {
-
   controller->MoveFigure((value - controller->get_old_position_x()) * 0.01,
                          s21::X);
   ui->openGLWidget->update();
@@ -135,7 +132,6 @@ void MainWindow::on_background_color_clicked() {
       QColorDialog::getColor(Qt::white, this, "Выберите цвет текста");
 
   if (chosenColor.isValid()) {
-
     float chosen_red_background = chosenColor.redF();
     float chosen_green_background = chosenColor.greenF();
     float chosen_blue_background = chosenColor.blueF();
@@ -217,7 +213,6 @@ void MainWindow::on_square_clicked() {
 }
 
 void MainWindow::load_Settings() {
-
   QSettings settings(save_settings, QSettings::IniFormat);
 
   if (settings.allKeys().isEmpty()) {
