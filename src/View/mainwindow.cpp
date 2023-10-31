@@ -2,11 +2,10 @@
 #include "myopenglwidgegt.h"
 #include "ui_mainwindow.h"
 
-
-
-MainWindow::MainWindow(s21::Controller * controller_, QWidget *parent)
+MainWindow::MainWindow(s21::Controller *controller_, QWidget *parent)
     : controller(controller_), QMainWindow(parent), ui(new Ui::MainWindow) {
-  ui->setupUi(controller_,this);
+  ui->setupUi(this);
+  ui->openGLWidget->controller = controller_;
   save_settings = QApplication::applicationDirPath() + "/save_settings.conf";
   load_Settings();
 }
@@ -22,10 +21,9 @@ MainWindow::~MainWindow() {
     save_Settings();
   } else {
     save_Settings_base();
-}
+  }
   delete ui;
 }
-
 
 void MainWindow::on_pushButton_chooseFile_clicked() {
   QString file_path =
@@ -37,7 +35,7 @@ void MainWindow::on_pushButton_chooseFile_clicked() {
   ui->label_textFile->setText(file_name);
   std::string math_exp_str = file_path.toStdString();
   try {
-  controller->OpenObjFile(math_exp_str);
+
     ui->horizontalSlider_scale->setValue(50);
     ui->horizontalSlider_x_value->setValue(0);
     ui->horizontalSlider_y_value->setValue(0);
@@ -45,90 +43,74 @@ void MainWindow::on_pushButton_chooseFile_clicked() {
     ui->horizontalSlider_x_translate->setValue(0);
     ui->horizontalSlider_y_translate->setValue(0);
     ui->horizontalSlider_z_translate->setValue(0);
+    controller->set_old_position_x(0);
+    controller->set_old_position_y(0);
+    controller->set_old_position_z(0);
+    controller->set_scale(0.5);
+    controller->OpenObjFile(math_exp_str);
     ui->openGLWidget->status_paint = true;
     ui->lcdNumber_vertices->display(
         static_cast<int>(controller->get_count_of_vertexes()));
     ui->lcdNumber_edges->display(
         static_cast<int>(controller->get_count_of_facets()));
     update();
-  } catch(...) {
+  } catch (...) {
     QMessageBox::critical(this, "Warning", "Something went wrong");
   }
 }
 
 void MainWindow::on_horizontalSlider_x_value_valueChanged(int value) {
- // double tmp = value;
- // value -= controller->get_old_position_x();
-  controller->MoveFigure((value-controller->get_old_position_x()) * 0.01,s21::X);
+
+  controller->MoveFigure((value - controller->get_old_position_x()) * 0.01,
+                         s21::X);
   ui->openGLWidget->update();
   controller->set_old_position_x(value);
 }
 
 void MainWindow::on_horizontalSlider_y_value_valueChanged(int value) {
-  //double tmp = value;
- // value -= old_position_y;
-  // else old_position+=value;
-  //    if (file_open) {
-  controller->MoveFigure(static_cast<double>(value - controller->get_old_position_y()) * 0.01, s21::Y);
+  controller->MoveFigure(
+      static_cast<double>(value - controller->get_old_position_y()) * 0.01,
+      s21::Y);
   ui->openGLWidget->update();
   controller->set_old_position_y(value);
 }
 
 void MainWindow::on_horizontalSlider_z_value_valueChanged(int value) {
-  //double tmp = value;
-  //value -= old_position_z;
-  controller->MoveFigure((value - controller->get_old_position_z()) * 0.01, s21::Z);
+  controller->MoveFigure((value - controller->get_old_position_z()) * 0.01,
+                         s21::Z);
   ui->openGLWidget->update();
   controller->set_old_position_z(value);
 }
 
 void MainWindow::on_horizontalSlider_scale_valueChanged(int value) {
-//  double tmp_value = value;
-//  tmp_value /= 100;
-//  tmp_value /= old_scale;
-  controller->IncreaseRedutionFigure(static_cast<double>(value)/(100.f * controller->get_scale()));
-  //increase_reduction_figure_a(&(ui->openGLWidget->matrix), tmp_value);
+  controller->IncreaseRedutionFigure(static_cast<double>(value) /
+                                     (100.f * controller->get_scale()));
   ui->openGLWidget->update();
-  controller->set_scale(static_cast<double>(value)/100.f);
+  controller->set_scale(static_cast<double>(value) / 100.f);
   ui->label_scale->setText("Scale: " + QString::number(value) + "%");
-
 }
 
 void MainWindow::on_horizontalSlider_x_translate_valueChanged(int value) {
-    controller->RotateFigure(static_cast<double>(value) * 0.01, s21::X);
-//  rotation_by_x_y_z(&(ui->openGLWidget->matrix),
-//                    static_cast<double>(value) * 0.01, X);
+  controller->RotateFigure(static_cast<double>(value) * 0.01, s21::X);
   ui->openGLWidget->update();
 }
 
 void MainWindow::on_horizontalSlider_y_translate_valueChanged(int value) {
-    controller->RotateFigure(static_cast<double>(value) * 0.01, s21::Y);
-//  rotation_by_x_y_z(&(ui->openGLWidget->matrix),
-//                    static_cast<double>(value) * 0.01, X);
+  controller->RotateFigure(static_cast<double>(value) * 0.01, s21::Y);
   ui->openGLWidget->update();
 }
 
 void MainWindow::on_horizontalSlider_z_translate_valueChanged(int value) {
-    controller->RotateFigure(static_cast<double>(value) * 0.01, s21::Z);
-//  rotation_by_x_y_z(&(ui->openGLWidget->matrix),
-//                    static_cast<double>(value) * 0.01, X);
+  controller->RotateFigure(static_cast<double>(value) * 0.01, s21::Z);
   ui->openGLWidget->update();
 }
 
 void MainWindow::on_CentralProjectionSelected() {
-  //    if (file_open) {
   ui->openGLWidget->setProjectionType(Central);
-  //    } else {
-  //         QMessageBox::critical(this, "Warning", "File is not loaded");
-  //    }
 }
 
 void MainWindow::on_ParallelProjectionSelected() {
-  //    if (file_open) {
   ui->openGLWidget->setProjectionType(Parallel);
-  //    } else {
-  //         QMessageBox::critical(this, "Warning", "File is not loaded");
-  //    }
 }
 
 void MainWindow::on_peaks_color_clicked() {
@@ -149,7 +131,6 @@ void MainWindow::on_size_point_valueChanged(int value) {
 }
 
 void MainWindow::on_background_color_clicked() {
-  //    if (file_open) {
   QColor chosenColor =
       QColorDialog::getColor(Qt::white, this, "Выберите цвет текста");
 
@@ -163,60 +144,49 @@ void MainWindow::on_background_color_clicked() {
         chosen_red_background, chosen_green_background, chosen_blue_background,
         chosen_alpha_background);
   }
-  /*}else {
-     QMessageBox::critical(this, "Предупреждение", "Файл не загружен");
- }*/
 }
 void MainWindow::on_gif_clicked() {
-  if (file_open) {
-    QGifImage gifImage(QSize(640, 480));
-    gifImage.setDefaultDelay(100);
-    gifImage.setLoopCount(0);
+  QGifImage gifImage(QSize(640, 480));
+  gifImage.setDefaultDelay(100);
+  gifImage.setLoopCount(0);
 
-    QElapsedTimer timer;
-    timer.start();
+  QElapsedTimer timer;
+  timer.start();
 
-    while (timer.elapsed() < 5 * 1000) {
-      QImage frameImage = ui->openGLWidget->grabFramebuffer();
-      gifImage.addFrame(frameImage);
+  while (timer.elapsed() < 5 * 1000) {
+    QImage frameImage = ui->openGLWidget->grabFramebuffer();
+    gifImage.addFrame(frameImage);
+  }
+
+  QString filter = "GIF (*.gif)";
+  QString FileName =
+      QFileDialog::getSaveFileName(this, "Save Image", "", filter);
+
+  if (!FileName.isEmpty()) {
+    QFile file(FileName);
+    if (file.open(QIODevice::WriteOnly)) {
+      gifImage.save(&file);
+      file.close();
+      QMessageBox::information(this, "Success", "Image saved successfully");
+    } else {
+      QMessageBox::critical(this, "Error", "Could not save GIF animation");
     }
-
-    QString filter = "GIF (*.gif)";
-    QString FileName =
-        QFileDialog::getSaveFileName(this, "Save Image", "", filter);
-
-    if (!FileName.isEmpty()) {
-      QFile file(FileName);
-      if (file.open(QIODevice::WriteOnly)) {
-        gifImage.save(&file);
-        file.close();
-        QMessageBox::information(this, "Success", "Image saved successfully");
-      } else {
-        QMessageBox::critical(this, "Error", "Could not save GIF animation");
-      }
-    }
-  } else {
-    QMessageBox::critical(this, "Warning", "File is not load");
   }
 }
 
 void MainWindow::on_screen_clicked() {
-  if (file_open) {
-    QImage GraphicImage = ui->openGLWidget->grabFramebuffer();
+  QImage GraphicImage = ui->openGLWidget->grabFramebuffer();
 
-    QString filter = "Images (*.jpg *.bmp);;JPEG (*.jpg);;BMP (*.bmp)";
-    QString FileName =
-        QFileDialog::getSaveFileName(this, "Save Image", "", filter);
+  QString filter = "Images (*.jpg *.bmp);;JPEG (*.jpg);;BMP (*.bmp)";
+  QString FileName =
+      QFileDialog::getSaveFileName(this, "Save Image", "", filter);
 
-    if (!FileName.isEmpty()) {
-      if (GraphicImage.save(FileName)) {
-        QMessageBox::information(this, "Success", "Image saved successfully");
-      } else {
-        QMessageBox::critical(this, "Error", "Could not save image");
-      }
+  if (!FileName.isEmpty()) {
+    if (GraphicImage.save(FileName)) {
+      QMessageBox::information(this, "Success", "Image saved successfully");
+    } else {
+      QMessageBox::critical(this, "Error", "Could not save image");
     }
-  } else {
-    QMessageBox::critical(this, "Warning", "File is not load");
   }
 }
 
@@ -250,10 +220,9 @@ void MainWindow::load_Settings() {
 
   QSettings settings(save_settings, QSettings::IniFormat);
 
-
-if (settings.allKeys().isEmpty()) {
+  if (settings.allKeys().isEmpty()) {
     save_Settings_base();
-}
+  }
   ui->openGLWidget->type_point = settings.value("type_point").toInt();
   ui->openGLWidget->size_point = settings.value("size_point").toInt();
   ui->openGLWidget->edgeThickness = settings.value("size_line").toInt();
@@ -371,4 +340,3 @@ void MainWindow::on_radioButtonNON_clicked() {
   int value = 3;
   ui->openGLWidget->setProjectionType(value);
 }
-

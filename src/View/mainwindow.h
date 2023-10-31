@@ -1,6 +1,7 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include "../Controller/Controller.h"
 #include "gif/qgifimage_p.h"
 #include <QColorDialog>
 #include <QDebug>
@@ -14,7 +15,6 @@
 #include <QOpenGLWidget>
 #include <QSettings>
 #include <QSlider>
-#include "../Controller/Controller.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -26,7 +26,7 @@ class MainWindow : public QMainWindow {
   Q_OBJECT
 
 public:
-  MainWindow(s21::Controller * controller_,QWidget *parent = nullptr);
+  MainWindow(s21::Controller *controller_, QWidget *parent = nullptr);
   ~MainWindow();
   bool file_open = false;
   QString save_settings;
@@ -82,6 +82,6 @@ private slots:
 
 private:
   Ui::MainWindow *ui;
-  s21::Controller * controller;
+  s21::Controller *controller;
 };
 #endif // MAINWINDOW_H

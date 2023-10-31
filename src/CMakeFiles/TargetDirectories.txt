@@ -1,4 +1,0 @@
-/Users/antoinco/CPP4_3DViewer_v2.0-1/src/CMakeFiles/3d_viewer.dir
-/Users/antoinco/CPP4_3DViewer_v2.0-1/src/CMakeFiles/edit_cache.dir
-/Users/antoinco/CPP4_3DViewer_v2.0-1/src/CMakeFiles/rebuild_cache.dir
-/Users/antoinco/CPP4_3DViewer_v2.0-1/src/CMakeFiles/3d_viewer_autogen.dir
