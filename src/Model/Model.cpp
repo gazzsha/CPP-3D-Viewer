@@ -3,7 +3,7 @@
 namespace s21
 {
   void Model::OpenObjFile(std::string file_name) {
-  std::ifstream inputFile("cube.obj");
+  std::ifstream inputFile(file_name);
   std::string line;
   std::istringstream input;
 
@@ -14,7 +14,7 @@ namespace s21
     }
     FigureCentering();
     IncreaseRedutionFigure(0.5);
-  }
+  } else throw std::runtime_error("Not open file!");
 }
 
 void Model::ParsingObjFile(std::string str) {
@@ -31,7 +31,7 @@ void Model::ParsingObjFile(std::string str) {
       break;
     case '\0': break;
     default:
-      throw std::runtime_error("Wrong data!");
+     throw std::runtime_error("Wrong data!");
       break;
   }
 }
@@ -92,7 +92,6 @@ std::vector<double> FillerFacets::Fill(const std::string& str) const {
         ++i;
         if (!number.empty()) {
           values.push_back(std::stod(number));
-          ++counter;
         }
         number.clear();
     }
@@ -138,8 +137,8 @@ void Model::FigureCentering() {
   double center_y = max_min_values.y_max_min[1] + (max_min_values.y_max_min[0] - max_min_values.y_max_min[1]) / 2;
   double center_z = max_min_values.z_max_min[1] + (max_min_values.z_max_min[0] - max_min_values.z_max_min[1]) / 2;
 
-  for (int i = 0; i < matrix_.size(); ++i) { 
-    for (int j = 0; j < matrix_[i].size(); ++j) {
+  for (size_t i = 0; i < matrix_.size(); ++i) { 
+    for (size_t  j = 0; j < matrix_[i].size(); ++j) {
       if (j == X) matrix_[i][j] -= center_x;
       if (j == Y) matrix_[i][j] -= center_y;
       if (j == Z) matrix_[i][j] -= center_z;
@@ -148,8 +147,8 @@ void Model::FigureCentering() {
 }
 
 void Model::MoveFigureXYZ(const double& value, move type) {
-  for (int i = 0; i < matrix_.size(); ++i) { 
-    for (int j = 0; j < matrix_[i].size(); ++j) {
+  for (size_t i = 0; i < matrix_.size(); ++i) { 
+    for (size_t j = 0; j < matrix_[i].size(); ++j) {
       if (type == X && j == 0) matrix_[i][j] += value;
       if (type == Y && j == 1) matrix_[i][j] += value;
       if (type == Z && j == 2) matrix_[i][j] += value;
@@ -157,7 +156,7 @@ void Model::MoveFigureXYZ(const double& value, move type) {
   }
 }
 
-const double Model::SupportIncreaseReductionFigure(const double& val) {
+double Model::SupportIncreaseReductionFigure(const double& val) {
   double diff_x = max_min_values.x_max_min[0] - max_min_values.x_max_min[1];
   double diff_y = max_min_values.y_max_min[0] - max_min_values.y_max_min[1];
   double diff_z = max_min_values.z_max_min[0] - max_min_values.z_max_min[1];
@@ -166,8 +165,8 @@ const double Model::SupportIncreaseReductionFigure(const double& val) {
 }
 
 void Model::IncreaseRedutionFigure(const double val) {
-  for (int i = 0; i < matrix_.size(); ++i) { 
-    for (int j = 0; j < matrix_[i].size(); ++j) {
+  for (size_t i = 0; i < matrix_.size(); ++i) { 
+    for (size_t j = 0; j < matrix_[i].size(); ++j) {
       if (j == X) matrix_[i][j] *= SupportIncreaseReductionFigure(val);
       if (j == Y) matrix_[i][j] *= SupportIncreaseReductionFigure(val);
       if (j == Z) matrix_[i][j] *= SupportIncreaseReductionFigure(val);
@@ -176,8 +175,8 @@ void Model::IncreaseRedutionFigure(const double val) {
 }
 
 void Model::IncreaseRedutionFigureA(const double val) {
-  for (int i = 0; i < matrix_.size(); ++i) { 
-    for (int j = 0; j < matrix_[i].size(); ++j) {
+  for (size_t i = 0; i < matrix_.size(); ++i) { 
+    for (size_t j = 0; j < matrix_[i].size(); ++j) {
       if (j == X) matrix_[i][j] *= val;
       if (j == Y) matrix_[i][j] *= val;
       if (j == Z) matrix_[i][j] *= val;
@@ -186,7 +185,7 @@ void Model::IncreaseRedutionFigureA(const double val) {
 }
 
 void Model::RotationByXYZ(const double& angle, move type) {
-  for (int i = 0; i < matrix_.size(); ++i) { 
+  for (size_t i = 0; i < matrix_.size(); ++i) { 
     double temp_x = matrix_[i][0];
     double temp_y = matrix_[i][1];
     double temp_z = matrix_[i][2];

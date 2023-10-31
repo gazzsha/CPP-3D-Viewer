@@ -23,8 +23,8 @@ TEST(test_centerig_figure, test_one) {
     EXPECT_EQ(answer[i].size(), res[i].size());
   }
 
-  std::vector<std::vector<double>>::iterator it_a = answer.begin();
-  std::vector<std::vector<double>>::iterator it_r = res.begin();
+  //std::vector<std::vector<double>>::iterator it_a = answer.begin();
+ // std::vector<std::vector<double>>::iterator it_r = res.begin();
 for (size_t i = 0; i < answer.size(); ++i) {
     EXPECT_EQ(answer[i].size(), res[i].size());
     
@@ -56,8 +56,8 @@ TEST(test_rotate_figure, test_rotate_one_x) {
     EXPECT_EQ(answer[i].size(), res[i].size());
   }
 
-  std::vector<std::vector<double>>::iterator it_a = answer.begin();
-  std::vector<std::vector<double>>::iterator it_r = res.begin();
+  //std::vector<std::vector<double>>::iterator it_a = answer.begin();
+  //std::vector<std::vector<double>>::iterator it_r = res.begin();
 
 for (size_t i = 0; i < answer.size(); ++i) {
     EXPECT_EQ(answer[i].size(), res[i].size());
@@ -91,8 +91,8 @@ TEST(test_rotate_figure, test_rotate_two_y) {
     EXPECT_EQ(answer[i].size(), res[i].size());
   }
 
-  std::vector<std::vector<double>>::iterator it_a = answer.begin();
-  std::vector<std::vector<double>>::iterator it_r = res.begin();
+  //std::vector<std::vector<double>>::iterator it_a = answer.begin();
+  //std::vector<std::vector<double>>::iterator it_r = res.begin();
 for (size_t i = 0; i < answer.size(); ++i) {
     EXPECT_EQ(answer[i].size(), res[i].size());
     
@@ -124,8 +124,8 @@ TEST(test_rotate_figure, test_rotate_three_z) {
     EXPECT_EQ(answer[i].size(), res[i].size());
   }
 
-  std::vector<std::vector<double>>::iterator it_a = answer.begin();
-  std::vector<std::vector<double>>::iterator it_r = res.begin();
+ // std::vector<std::vector<double>>::iterator it_a = answer.begin();
+  //std::vector<std::vector<double>>::iterator it_r = res.begin();
 for (size_t i = 0; i < answer.size(); ++i) {
     EXPECT_EQ(answer[i].size(), res[i].size());
     
@@ -157,8 +157,8 @@ TEST(test_move_figure, test_move_one_x) {
     EXPECT_EQ(answer[i].size(), res[i].size());
   }
 
-  std::vector<std::vector<double>>::iterator it_a = answer.begin();
-  std::vector<std::vector<double>>::iterator it_r = res.begin();
+  //std::vector<std::vector<double>>::iterator it_a = answer.begin();
+//  std::vector<std::vector<double>>::iterator it_r = res.begin();
 for (size_t i = 0; i < answer.size(); ++i) {
     EXPECT_EQ(answer[i].size(), res[i].size());
     
@@ -191,8 +191,8 @@ TEST(test_move_figure, test_move_one_y) {
     EXPECT_EQ(answer[i].size(), res[i].size());
   }
 
-  std::vector<std::vector<double>>::iterator it_a = answer.begin();
-  std::vector<std::vector<double>>::iterator it_r = res.begin();
+ // std::vector<std::vector<double>>::iterator it_a = answer.begin();
+ // std::vector<std::vector<double>>::iterator it_r = res.begin();
 for (size_t i = 0; i < answer.size(); ++i) {
     EXPECT_EQ(answer[i].size(), res[i].size());
     
@@ -224,8 +224,8 @@ TEST(test_move_figure, test_move_one_z) {
     EXPECT_EQ(answer[i].size(), res[i].size());
   }
 
-  std::vector<std::vector<double>>::iterator it_a = answer.begin();
-  std::vector<std::vector<double>>::iterator it_r = res.begin();
+ // std::vector<std::vector<double>>::iterator it_a = answer.begin();
+ // std::vector<std::vector<double>>::iterator it_r = res.begin();
 for (size_t i = 0; i < answer.size(); ++i) {
     EXPECT_EQ(answer[i].size(), res[i].size());
     

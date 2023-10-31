@@ -87,7 +87,7 @@ public:
     double FindMinVertexes(move) const;
     void FigureCentering();
     void MoveFigureXYZ(const double&, move);
-    const double SupportIncreaseReductionFigure(const double&);
+    double SupportIncreaseReductionFigure(const double&);
     void IncreaseRedutionFigure(const double);
     void IncreaseRedutionFigureA(const double);
     void RotationByXYZ(const double&, move);
@@ -99,22 +99,22 @@ public:
     Matrix GetMatrixFacetes() { return polygon_; }
     
 
-        void print() { 
-        for (int i = 0; i < matrix_.size(); ++i) { 
-            for (int j = 0; j < matrix_[i].size(); ++j) { 
-                std::cout << matrix_[i][j] << " ";
-            }
-            std::cout << "\n";
-        }
-    }
-            void printt() { 
-        for (int i = 0; i < polygon_.size(); ++i) { 
-            for (int j = 0; j < polygon_[i].size(); ++j) { 
-                std::cout << polygon_[i][j] << " ";
-            }
-            std::cout << "\n";
-        }
-    }
+    //     void print() { 
+    //     for (int i = 0; i < matrix_.size(); ++i) { 
+    //         for (int j = 0; j < matrix_[i].size(); ++j) { 
+    //             std::cout << matrix_[i][j] << " ";
+    //         }
+    //         std::cout << "\n";
+    //     }
+    // }
+    //         void printt() { 
+    //     for (int i = 0; i < polygon_.size(); ++i) { 
+    //         for (int j = 0; j < polygon_[i].size(); ++j) { 
+    //             std::cout << polygon_[i][j] << " ";
+    //         }
+    //         std::cout << "\n";
+    //     }
+    // }
 };    
 } // namespace s21
 
